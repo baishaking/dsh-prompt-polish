@@ -1,12 +1,15 @@
 # 安装（从源码）
 
-> 本仓库是 `dsh-prompt-polish` 的源码镜像，**不含** `node_modules` 副本。原因见 README「依赖说明（重要）」一节：
-> 插件依赖宿主自带的 `@deepseek-ai/schemastery` 与 `@deepseek-ai/cosmokit`，DSH 安装目录里已有这两份，复制比重新安装更可靠。
+> 本仓库是 `dsh-prompt-polish` 的源码镜像，**已附带**依赖副本：`node_modules/@deepseek-ai/{schemastery,cosmokit}`
+> （3.19.0 / 1.9.0，MIT，纯 JS，无原生编译）。克隆下来即可直接挂载，不需要联网、不需要 `npm install`。
 
-## 1. 复制依赖
+## 1. 依赖（无需操作）
 
-从本机 DSH 安装目录的 `node_modules/@deepseek-ai/` 下，把 `schemastery`（3.19.0）与 `cosmokit`（1.9.0）
-复制到插件根目录的 `node_modules/@deepseek-ai/`。两个包都是纯 JS，无原生编译步骤。
+- 两个包已随仓库入库，Node 从插件根目录向上解析就能命中 `node_modules/@deepseek-ai/`。
+- `schemastery` 的 `package.json` 在 `dependencies` 里列了 `@standard-schema/spec`，但它的 `lib/` 代码并不 import
+  这个包（只用于类型定义），运行时**不需要**，所以仓库没有附它。
+- **别删这两个目录**，也别用 `npm install` 去"补"：根 `package.json` 没有声明任何依赖，npm 装不到它们；
+  一旦删掉就只剩联网重装一条路（`npm i @deepseek-ai/schemastery@3.19.0 @deepseek-ai/cosmokit@1.9.0`）。
 
 ## 2. 挂进 DSH profile
 

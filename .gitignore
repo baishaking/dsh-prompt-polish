@@ -1,4 +1,4 @@
-node_modules/
+# 依赖已随仓库附带（vendored，MIT，纯 JS），clone 后无需联网安装，故不忽略 node_modules
 *.bak*
 .DS_Store
 *.tar.gz

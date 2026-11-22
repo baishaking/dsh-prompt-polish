@@ -81,12 +81,13 @@ volatile 解包、剥洗管线不误伤）。全部通过时退出码 0。
 
 ## 依赖说明（重要）
 
-本插件 `lib/index.js` 第一行就 `import z from '@deepseek-ai/schemastery'`。插件以 junction 链进
-`~/.dsh/profiles/desktop/node_modules/` 后，**Node 按真实路径解析**，会从工作区往上找 node_modules，
+本插件 `lib/index.js` 第一行就 `import z from '@deepseek-ai/schemastery'`。插件以 junction / 软链链进
+`~/.dsh/profiles/<name>/node_modules/` 后，**Node 按真实路径解析**，会从插件目录往上找 node_modules，
 找不到 profile 里的那份。
 
-因此本目录自带 `node_modules/@deepseek-ai/{schemastery,cosmokit}`（从 DSH 安装目录复制，版本 3.19.0 / 1.9.0）。
-不能改成指向 `app.asar` 的 junction——实测 Windows 下指向 asar 内部子目录的 junction 创建成功但**立即失效**。
+因此**本仓库自带** `node_modules/@deepseek-ai/{schemastery,cosmokit}`（3.19.0 / 1.9.0，MIT，纯 JS），
+克隆下来无需联网安装即可运行。不要改成指向宿主 `app.asar` 的 junction——实测 Windows 下指向 asar
+内部子目录的 junction 创建成功但**立即失效**；也不要 `npm install`（根 `package.json` 没声明依赖，装了也是空）。
 
 `cosmokit` 的 volatile 用 `Symbol.for("cosmokit.volatile.write")` 全局注册符号，所以插件与宿主各持一份副本
 也能互相识别（`isVolatile` 跨副本有效），复制方案是安全的。
