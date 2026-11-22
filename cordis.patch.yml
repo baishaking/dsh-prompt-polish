@@ -1,0 +1,5 @@
+# 插入本插件。id 必须与客户端 lib/client.js 里的 NS 常量、以及 configForms.get(entryId) 的入参完全一致，
+# 否则设置页会静默消失（dsh-settings 用 entry.options.id 当命名空间）。
+- insert:
+    - id: prompt-polish
+      name: 'dsh-prompt-polish'
